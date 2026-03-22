@@ -1,5 +1,7 @@
 # AMD Strix Halo Context Benchmark
 
+Language: [English](README.md) | [한국어](README.ko.md)
+
 This project benchmarks local `llama.cpp` server models across increasing context lengths on an AMD Strix Halo 128GB machine.
 
 It is built to answer a simple question: how does decode and prefill throughput change as prompt context grows, and at what bucket does decode speed fall below `10 tok/sec`?
