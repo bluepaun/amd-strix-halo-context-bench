@@ -29,35 +29,20 @@
         </div>
         <div class="hero-actions hero-actions--stacked">
           <div class="language-switch" aria-label="Language selector">
-            <button type="button" class="language-button" data-lang="en">
-              EN
-            </button>
-            <button type="button" class="language-button" data-lang="ko">
-              KR
-            </button>
+            <button type="button" class="language-button" data-lang="en">EN</button>
+            <button type="button" class="language-button" data-lang="ko">KR</button>
           </div>
-          <a class="action-link" id="repo-link" target="_blank" rel="noreferrer"
-            >GitHub</a
-          >
-          <a
-            class="action-link"
-            id="readme-link"
-            target="_blank"
-            rel="noreferrer"
-            >README</a
-          >
-          <a class="action-link" id="csv-link" href="./benchmark_results.csv"
-            >CSV</a
-          >
+          <a class="action-link" id="repo-link" target="_blank" rel="noreferrer">GitHub</a>
+          <a class="action-link" id="readme-link" target="_blank" rel="noreferrer">README</a>
+          <a class="action-link" id="csv-link" href="./benchmark_results.csv">CSV</a>
         </div>
       </header>
 
       <section class="panel detail-panel">
+        <div class="detail-empty" id="detail-empty"></div>
+
         <div id="detail-content" hidden>
-          <div
-            class="detail-stat-grid detail-stat-grid--wide"
-            id="detail-stat-grid"
-          ></div>
+          <div class="detail-stat-grid detail-stat-grid--wide" id="detail-stat-grid"></div>
 
           <div class="charts-grid">
             <section class="chart-card">
@@ -68,11 +53,7 @@
                 </div>
               </div>
               <div class="chart-wrap">
-                <svg
-                  id="decode-chart-svg"
-                  viewBox="0 0 760 360"
-                  preserveAspectRatio="none"
-                >
+                <svg id="decode-chart-svg" viewBox="0 0 760 360" preserveAspectRatio="none">
                   <title>Decode chart</title>
                 </svg>
               </div>
@@ -86,11 +67,7 @@
                 </div>
               </div>
               <div class="chart-wrap">
-                <svg
-                  id="prefill-chart-svg"
-                  viewBox="0 0 760 360"
-                  preserveAspectRatio="none"
-                >
+                <svg id="prefill-chart-svg" viewBox="0 0 760 360" preserveAspectRatio="none">
                   <title>Prefill chart</title>
                 </svg>
               </div>
