@@ -3,7 +3,12 @@ import process from "node:process";
 import { checkbox } from "@inquirer/prompts";
 import { LlamaApiClient } from "./api/llamaClient.js";
 import { BenchmarkRunner } from "./benchmark/benchmarkRunner.js";
-import { DEFAULT_BASE_URL, DEFAULT_OUTPUT_PATH, TOKENS_PER_CONTEXT_K } from "./config.js";
+import {
+  DEFAULT_BASE_URL,
+  DEFAULT_OUTPUT_PATH,
+  DEFAULT_PAGES_OUTPUT_PATH,
+  TOKENS_PER_CONTEXT_K,
+} from "./config.js";
 import { ResultsCsvStore } from "./csv/writeResults.js";
 import { PromptSizer } from "./prompt/promptSizer.js";
 import { ConsoleStatusReporter } from "./ui/statusReporter.js";
@@ -31,11 +36,12 @@ async function selectModels(client: LlamaApiClient): Promise<string[]> {
 
 async function main(): Promise<void> {
   const outputPath = path.resolve(process.cwd(), DEFAULT_OUTPUT_PATH);
+  const pagesOutputPath = path.resolve(process.cwd(), DEFAULT_PAGES_OUTPUT_PATH);
   const client = new LlamaApiClient(DEFAULT_BASE_URL);
   const selectedModels = await selectModels(client);
   const reporter = new ConsoleStatusReporter();
   const promptSizer = new PromptSizer(client);
-  const resultsStore = new ResultsCsvStore(outputPath);
+  const resultsStore = new ResultsCsvStore(outputPath, [pagesOutputPath]);
   const runner = new BenchmarkRunner(client, promptSizer, reporter, resultsStore);
 
   await runner.runModels(selectedModels);

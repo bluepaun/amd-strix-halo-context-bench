@@ -2,6 +2,8 @@ export const DEFAULT_BASE_URL =
   process.env.LLAMA_BASE_URL ?? 'http://127.0.0.1:8080';
 export const DEFAULT_OUTPUT_PATH =
   process.env.BENCHMARK_OUTPUT_PATH ?? 'benchmark_results.csv';
+export const DEFAULT_PAGES_OUTPUT_PATH =
+  process.env.BENCHMARK_PAGES_OUTPUT_PATH ?? 'docs/benchmark_results.csv';
 
 const parseDurationMs = (
   value: string | undefined,

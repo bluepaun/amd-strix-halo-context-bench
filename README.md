@@ -99,11 +99,13 @@ After the model picker opens:
 ```bash
 LLAMA_BASE_URL=http://127.0.0.1:8080
 BENCHMARK_OUTPUT_PATH=benchmark_results.csv
+BENCHMARK_PAGES_OUTPUT_PATH=docs/benchmark_results.csv
 REQUEST_TIMEOUT_MS=3600000
 ```
 
 - `LLAMA_BASE_URL`: base URL for the `llama.cpp` server
 - `BENCHMARK_OUTPUT_PATH`: CSV output path
+- `BENCHMARK_PAGES_OUTPUT_PATH`: mirrored CSV path for the GitHub Pages dashboard
 - `REQUEST_TIMEOUT_MS`: per-request timeout in milliseconds
 
 ## Output
@@ -133,6 +135,19 @@ Common status values:
 - `degenerate_response`
 - `unload_failed`
 
+## GitHub Pages Dashboard
+
+- A static benchmark explorer lives in `docs/`.
+- It is designed for GitHub Pages and supports both English and Korean.
+- The dashboard reads `docs/benchmark_results.csv`.
+- The benchmark CLI now mirrors CSV writes to `docs/benchmark_results.csv` by default, so published data stays in sync when you commit updated results.
+- To publish it on GitHub Pages, serve the `main` branch `docs/` folder.
+- For a quick local preview, run:
+
+```bash
+python3 -m http.server 4173 --directory docs
+```
+
 ## TUI
 
 During a run, the terminal UI shows:
@@ -149,6 +164,7 @@ During a run, the terminal UI shows:
 ## Project Structure
 
 ```text
+docs/              GitHub Pages benchmark dashboard
 src/
   api/            llama.cpp HTTP client
   benchmark/      benchmark orchestration

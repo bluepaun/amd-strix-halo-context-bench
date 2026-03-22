@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AMD Strix Halo Context Benchmark Explorer</title>
+    <meta
+      name="description"
+      content="Bilingual GitHub Pages dashboard for benchmark_results.csv from the AMD Strix Halo llama.cpp context benchmark project."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="panel hero">
+        <div class="hero-copy">
+          <p class="eyebrow" id="hero-eyebrow"></p>
+          <h1 id="hero-title"></h1>
+          <p class="hero-lead" id="hero-lead"></p>
+          <div class="hero-badges" id="hero-badges"></div>
+        </div>
+        <div class="hero-actions">
+          <div class="language-switch" aria-label="Language selector">
+            <button type="button" class="language-button" data-lang="en">EN</button>
+            <button type="button" class="language-button" data-lang="ko">KR</button>
+          </div>
+          <a class="action-link" id="repo-link" target="_blank" rel="noreferrer">GitHub</a>
+          <a class="action-link" id="readme-link" target="_blank" rel="noreferrer">README</a>
+          <a class="action-link" id="csv-link" href="./benchmark_results.csv">CSV</a>
+        </div>
+      </header>
+
+      <section class="stats-grid" id="stats-grid"></section>
+
+      <section class="panel controls-panel">
+        <div class="controls-top">
+          <label class="control-field">
+            <span class="control-label" id="search-label"></span>
+            <input id="search-input" type="search" autocomplete="off" />
+          </label>
+
+          <label class="control-field control-field--compact">
+            <span class="control-label" id="sort-label"></span>
+            <select id="sort-select"></select>
+          </label>
+        </div>
+
+        <div class="controls-bottom">
+          <div class="control-group">
+            <span class="control-label" id="focus-label"></span>
+            <div class="segmented-control" id="focus-options"></div>
+          </div>
+
+          <div class="control-group">
+            <span class="control-label" id="metric-label"></span>
+            <div class="segmented-control" id="metric-options"></div>
+          </div>
+        </div>
+      </section>
+
+      <div class="dashboard-grid">
+        <section class="panel directory-panel">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow" id="directory-eyebrow"></p>
+              <h2 id="directory-title"></h2>
+            </div>
+            <p class="section-copy" id="directory-summary"></p>
+          </div>
+          <div class="directory-list" id="model-list"></div>
+        </section>
+
+        <section class="panel detail-panel">
+          <div class="detail-empty" id="detail-empty"></div>
+
+          <div id="detail-content" hidden>
+            <div class="detail-head">
+              <div>
+                <p class="eyebrow" id="detail-eyebrow"></p>
+                <h2 id="detail-title"></h2>
+                <div class="detail-badges" id="detail-badges"></div>
+              </div>
+              <div class="detail-stat-grid" id="detail-stat-grid"></div>
+            </div>
+
+            <section class="chart-card">
+              <div class="section-head section-head--tight">
+                <div>
+                  <h3 id="chart-title"></h3>
+                  <p class="section-copy" id="chart-subtitle"></p>
+                </div>
+              </div>
+              <div class="chart-wrap">
+                <svg id="chart-svg" viewBox="0 0 760 360" preserveAspectRatio="none">
+                  <title id="chart-svg-title">Benchmark chart</title>
+                </svg>
+              </div>
+            </section>
+
+            <section class="timeline-card">
+              <div class="section-head section-head--tight">
+                <div>
+                  <h3 id="timeline-title"></h3>
+                  <p class="section-copy" id="timeline-subtitle"></p>
+                </div>
+              </div>
+              <div class="context-strip" id="context-strip"></div>
+            </section>
+
+            <section class="table-card">
+              <div class="section-head section-head--tight">
+                <div>
+                  <h3 id="table-title"></h3>
+                  <p class="section-copy" id="table-subtitle"></p>
+                </div>
+              </div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th id="table-head-context"></th>
+                      <th id="table-head-status"></th>
+                      <th id="table-head-decode"></th>
+                      <th id="table-head-prefill"></th>
+                      <th id="table-head-below"></th>
+                      <th id="table-head-elapsed"></th>
+                      <th id="table-head-date"></th>
+                    </tr>
+                  </thead>
+                  <tbody id="table-body"></tbody>
+                </table>
+              </div>
+            </section>
+          </div>
+        </section>
+      </div>
+
+      <section class="info-grid">
+        <section class="panel info-card" id="system-card"></section>
+        <section class="panel info-card" id="publish-card"></section>
+      </section>
+    </div>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

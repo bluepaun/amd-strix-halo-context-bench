@@ -1,4 +1,5 @@
-import { readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { dirname, resolve } from "node:path";
 import { formatElapsed } from "../time/elapsed.js";
 import type { BenchmarkRow, BenchmarkStatus, SearchPhase } from "../types.js";
 
@@ -237,7 +238,10 @@ export class ResultsCsvStore {
   private readonly rows = new Map<string, PersistedBenchmarkRow>();
   private loaded = false;
 
-  constructor(private readonly outputPath: string) {}
+  constructor(
+    private readonly outputPath: string,
+    private readonly mirrorPaths: string[] = [],
+  ) {}
 
   async upsertRow(row: BenchmarkRow, testDate: string = new Date().toISOString()): Promise<void> {
     await this.ensureLoaded();
@@ -326,12 +330,22 @@ export class ResultsCsvStore {
       ].join(","));
     }
 
-    await writeFile(this.outputPath, `${lines.join("\n")}\n`, "utf8");
+    const content = `${lines.join("\n")}\n`;
+    const outputPaths = [...new Set([this.outputPath, ...this.mirrorPaths].map((outputPath) => resolve(outputPath)))];
+
+    await Promise.all(outputPaths.map(async (outputPath) => {
+      await mkdir(dirname(outputPath), { recursive: true });
+      await writeFile(outputPath, content, "utf8");
+    }));
   }
 }
 
-export async function writeResultsCsv(outputPath: string, rows: BenchmarkRow[]): Promise<void> {
-  const store = new ResultsCsvStore(outputPath);
+export async function writeResultsCsv(
+  outputPath: string,
+  rows: BenchmarkRow[],
+  mirrorPaths: string[] = [],
+): Promise<void> {
+  const store = new ResultsCsvStore(outputPath, mirrorPaths);
 
   for (const row of [...rows].sort(sortRows)) {
     await store.upsertRow(row);

@@ -100,11 +100,13 @@ http://127.0.0.1:8080
 ```bash
 LLAMA_BASE_URL=http://127.0.0.1:8080
 BENCHMARK_OUTPUT_PATH=benchmark_results.csv
+BENCHMARK_PAGES_OUTPUT_PATH=docs/benchmark_results.csv
 REQUEST_TIMEOUT_MS=3600000
 ```
 
 - `LLAMA_BASE_URL`: `llama.cpp` 서버의 base URL
 - `BENCHMARK_OUTPUT_PATH`: CSV 출력 경로
+- `BENCHMARK_PAGES_OUTPUT_PATH`: GitHub Pages 대시보드용 CSV 미러 경로
 - `REQUEST_TIMEOUT_MS`: 요청별 타임아웃 밀리초 값
 
 ## 출력
@@ -134,6 +136,19 @@ model_name,context_k,search_phase,decode_tps,prefill_tps,below_10,status,elapsed
 - `degenerate_response`
 - `unload_failed`
 
+## GitHub Pages 대시보드
+
+- 정적 벤치마크 탐색기는 `docs/`에 있습니다.
+- GitHub Pages용으로 만들었고, 영어와 한국어를 모두 지원합니다.
+- 대시보드는 `docs/benchmark_results.csv`를 읽습니다.
+- 벤치마크 CLI는 기본적으로 CSV를 `docs/benchmark_results.csv`에도 함께 미러링하므로, 결과를 커밋하면 배포 데이터도 같이 맞춰집니다.
+- GitHub Pages에는 `main` 브랜치의 `docs/` 폴더를 서비스하도록 설정하면 됩니다.
+- 로컬 미리보기:
+
+```bash
+python3 -m http.server 4173 --directory docs
+```
+
 ## TUI
 
 실행 중 터미널 UI에는 다음 정보가 표시됩니다.
@@ -150,6 +165,7 @@ model_name,context_k,search_phase,decode_tps,prefill_tps,below_10,status,elapsed
 ## 프로젝트 구조
 
 ```text
+docs/              GitHub Pages benchmark dashboard
 src/
   api/            llama.cpp HTTP client
   benchmark/      benchmark orchestration
