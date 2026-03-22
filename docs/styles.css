@@ -251,7 +251,7 @@ select {
 }
 
 .stats-grid {
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 }
 
 .stat-card,
@@ -626,6 +626,67 @@ select {
   border: 1px solid rgba(24, 35, 67, 0.08);
 }
 
+.summary-table {
+  min-width: 980px;
+}
+
+.summary-row {
+  cursor: pointer;
+}
+
+.summary-row:focus-visible {
+  outline: 3px solid rgba(36, 92, 255, 0.28);
+  outline-offset: -3px;
+}
+
+.model-name-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.model-name {
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+  color: var(--accent-strong);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.back-link::before {
+  content: "<-";
+}
+
+.detail-hero {
+  align-items: stretch;
+}
+
+.hero-actions--stacked {
+  align-content: start;
+}
+
+.detail-stat-grid--wide {
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+}
+
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.detail-table-card {
+  margin-top: 18px;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -753,7 +814,8 @@ tbody tr:hover {
   .controls-top,
   .controls-bottom,
   .dashboard-grid,
-  .info-grid {
+  .info-grid,
+  .charts-grid {
     grid-template-columns: 1fr;
   }
 
