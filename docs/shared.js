@@ -20,7 +20,7 @@ export const COPY = {
       eyebrow: "GitHub Pages benchmark table",
       title: "AMD Strix Halo llama.cpp Context Bench",
       lead:
-        "Use the main table to scan 0K and max-context throughput, then open a model for decode and prefill scaling charts plus raw CSV rows.",
+        "Use the main table to scan 1K and max-context throughput, then open a model for decode and prefill scaling charts plus raw CSV rows.",
       badges: [
         "AMD Ryzen AI Max+ 395 · Radeon 8060S · 128GB unified memory",
         "distrobox · kyuz0/amd-strix-halo-toolboxes:rocm-7.2",
@@ -44,8 +44,8 @@ export const COPY = {
         sort: "Sort",
         sortOptions: {
           maxContext: "Max context",
-          zeroDecode: "0K decode",
-          zeroPrefill: "0K prefill",
+          zeroDecode: "1K decode",
+          zeroPrefill: "1K prefill",
           latest: "Latest update",
           name: "Name",
         },
@@ -59,8 +59,8 @@ export const COPY = {
         loading: "Loading benchmark results...",
         headers: {
           model: "Model name",
-          zeroDecode: "0K decode tps",
-          zeroPrefill: "0K prefill tps",
+          zeroDecode: "1K decode tps",
+          zeroPrefill: "1K prefill tps",
           maxContext: "Max context K",
           maxDecode: "Max decode tps",
           maxPrefill: "Max prefill tps",
@@ -169,7 +169,7 @@ export const COPY = {
       eyebrow: "GitHub Pages 벤치마크 테이블",
       title: "AMD Strix Halo llama.cpp 컨텍스트 벤치마크",
       lead:
-        "메인 테이블에서 0K와 최대 컨텍스트 처리량을 빠르게 비교하고, 각 모델 페이지에서 decode/prefill 스케일링 그래프와 원본 CSV 행을 확인하세요.",
+        "메인 테이블에서 1K와 최대 컨텍스트 처리량을 빠르게 비교하고, 각 모델 페이지에서 decode/prefill 스케일링 그래프와 원본 CSV 행을 확인하세요.",
       badges: [
         "AMD Ryzen AI Max+ 395 · Radeon 8060S · 통합 메모리 128GB",
         "distrobox · kyuz0/amd-strix-halo-toolboxes:rocm-7.2",
@@ -193,8 +193,8 @@ export const COPY = {
         sort: "정렬",
         sortOptions: {
           maxContext: "최대 컨텍스트 순",
-          zeroDecode: "0K decode 순",
-          zeroPrefill: "0K prefill 순",
+          zeroDecode: "1K decode 순",
+          zeroPrefill: "1K prefill 순",
           latest: "최신 업데이트 순",
           name: "이름순",
         },
@@ -208,8 +208,8 @@ export const COPY = {
         loading: "벤치마크 결과를 불러오는 중...",
         headers: {
           model: "모델 이름",
-          zeroDecode: "0K decode tps",
-          zeroPrefill: "0K prefill tps",
+          zeroDecode: "1K decode tps",
+          zeroPrefill: "1K prefill tps",
           maxContext: "최대 context K",
           maxDecode: "max decode tps",
           maxPrefill: "max prefill tps",
@@ -652,6 +652,8 @@ function buildSummary(modelName, rows) {
     return dateValue(left.test_date) - dateValue(right.test_date);
   });
   const zeroContextRow = pickLastRow(sortedRows.filter((row) => row.context_k === 0));
+  const oneContextRow = pickLastRow(sortedRows.filter((row) => row.context_k === 1));
+  const tableContextRow = oneContextRow ?? zeroContextRow;
   const maxContextK = sortedRows.reduce((max, row) => Math.max(max, row.context_k), 0);
   const maxContextRow = pickLastRow(sortedRows.filter((row) => row.context_k === maxContextK));
   const thresholdRow = sortedRows.find((row) => row.status === "ok" && row.below_10) ?? null;
@@ -662,6 +664,8 @@ function buildSummary(modelName, rows) {
     modelName,
     rows: sortedRows,
     zeroContextRow,
+    oneContextRow,
+    tableContextRow,
     maxContextK,
     maxContextRow,
     thresholdRow,

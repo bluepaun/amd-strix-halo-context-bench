@@ -290,8 +290,8 @@ function renderTable(copy, summaries) {
               ${badge}
             </div>
           </td>
-          <td class="numeric">${escapeHtml(formatTps(summary.zeroContextRow?.decode_tps, state.lang))}</td>
-          <td class="numeric">${escapeHtml(formatTps(summary.zeroContextRow?.prefill_tps, state.lang))}</td>
+          <td class="numeric">${escapeHtml(formatTps(summary.tableContextRow?.decode_tps, state.lang))}</td>
+          <td class="numeric">${escapeHtml(formatTps(summary.tableContextRow?.prefill_tps, state.lang))}</td>
           <td class="numeric">${escapeHtml(formatContext(summary.maxContextK, state.lang))}</td>
           <td class="numeric">${escapeHtml(formatTps(summary.maxContextRow?.decode_tps, state.lang))}</td>
           <td class="numeric">${escapeHtml(formatTps(summary.maxContextRow?.prefill_tps, state.lang))}</td>
@@ -312,9 +312,9 @@ function getFilteredSummaries() {
 function sortSummaries(left, right) {
   switch (state.sort) {
     case "zeroDecode":
-      return compareNumbersDesc(left.zeroContextRow?.decode_tps ?? -1, right.zeroContextRow?.decode_tps ?? -1);
+      return compareNumbersDesc(left.tableContextRow?.decode_tps ?? -1, right.tableContextRow?.decode_tps ?? -1);
     case "zeroPrefill":
-      return compareNumbersDesc(left.zeroContextRow?.prefill_tps ?? -1, right.zeroContextRow?.prefill_tps ?? -1);
+      return compareNumbersDesc(left.tableContextRow?.prefill_tps ?? -1, right.tableContextRow?.prefill_tps ?? -1);
     case "latest":
       return compareNumbersDesc(left.updatedAt, right.updatedAt) || left.modelName.localeCompare(right.modelName);
     case "name":
