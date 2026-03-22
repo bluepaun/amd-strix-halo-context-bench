@@ -2,6 +2,8 @@
 
 Language: [English](README.md) | [한국어](README.ko.md)
 
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Dashboard-245cff?logo=githubpages&logoColor=white)](https://bluepaun.github.io/amd-strix-halo-context-bench/)
+
 This project benchmarks local `llama.cpp` server models across increasing context lengths on an AMD Strix Halo 128GB machine.
 
 It is built to answer a simple question: how does decode and prefill throughput change as prompt context grows, and at what bucket does decode speed fall below `10 tok/sec`?

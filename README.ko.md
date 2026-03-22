@@ -2,6 +2,8 @@
 
 언어: [English](README.md) | [한국어](README.ko.md)
 
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Dashboard-245cff?logo=githubpages&logoColor=white)](https://bluepaun.github.io/amd-strix-halo-context-bench/)
+
 이 프로젝트는 AMD Strix Halo 128GB 시스템에서 로컬 `llama.cpp` 서버 모델을 점점 더 긴 컨텍스트 길이로 벤치마크합니다.
 
 이 프로젝트의 핵심 질문은 단순합니다. 프롬프트 컨텍스트가 길어질수록 decode/prefill 처리량이 어떻게 변하는지, 그리고 decode 속도가 `10 tok/sec` 아래로 떨어지는 첫 구간이 어디인지 측정하는 것입니다.
